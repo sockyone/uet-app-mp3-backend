@@ -4,9 +4,12 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "iconv-lite": "^0.6.2",
+    "iconv-urlencode": "^1.0.0",
     "md5": "^2.3.0",
     "mongoose": "^5.10.7",
+    "utf8": "^3.0.0",
     "uuid": "^8.3.0",
-    "ytdl-core": "^3.3.0"
+    "ytdl-core": "^4.0.3"
   }
 }

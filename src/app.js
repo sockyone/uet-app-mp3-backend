@@ -234,7 +234,7 @@ app.get('/search', async (req, res) => {
         })
     }
 
-    let rs = await axios.get(YOUTUBE_API + `/search?part=id&maxResults=30&q=${encodeURIComponent(queryString)}&key=${API_KEY}`)
+    let rs = await axios.get(YOUTUBE_API + `/search?part=id&maxResults=30&hl=vi&q=${encodeURIComponent(queryString)}&key=${API_KEY}`)
     // res.send(rs.data)
     //transform the result
     let ids = rs.data.items.map(e => e.id.videoId)
@@ -375,7 +375,7 @@ function serve_mp3(req, res, fileName) {
 app.get('/recommend', async (req, res) => {
     let search = req.query.q
     // "anh%20y%C3%AAu%20em"
-    let url = `http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&client=firefox&q=${encodeURIComponent(search)}`
+    let url = `http://suggestqueries.google.com/complete/search?client=youtube&hl=vi&ds=yt&client=firefox&q=${encodeURIComponent(search)}`
     let rs = await axios.get(url, {responseType:'arraybuffer'})
     let json = JSON.parse(require('iconv-lite').decode(rs.data, "ISO-8859-1"))
     res.send(json[1])

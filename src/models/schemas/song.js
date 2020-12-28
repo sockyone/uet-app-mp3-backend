@@ -1,9 +1,16 @@
+const { Mongoose } = require('mongoose')
+
 const Schema = require('mongoose').Schema
 
 const Song = new Schema({
-    info: Schema.Types.Mixed,
-    fileName: String,
-    ytid: String
+    id: String,
+    title: String,
+    description: String,
+    channelTitle: String,
+    publishTime: Date,
+    liveBroadcastContent: String,
+    thumbnails: Schema.Types.Mixed,
+    duration: String
 })
 
 module.exports = Song

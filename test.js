@@ -1,161 +1,164 @@
-let arrAllUser = [
-    {
-        code: 1022,
-        sponsorId: 0,
-        id: '1',
-        created: 1605949673672
-    },
-    {
-        code: 1023,
-        sponsorId: 1022,
-        id: '2',
-        created: 1605949673673
-    },
-    {
-        code: 1024,
-        sponsorId: 1022,
-        id: '3',
-        created: 1605949673674
-    },
-    {
-        code: 1025,
-        sponsorId: 1023,
-        id: '4',
-        created: 1605949673675
-    },
-    {
-        code: 1026,
-        sponsorId: 1023,
-        id: '5',
-        created: 1605949673675
-    },
-    {
-        code: 1027,
-        sponsorId: 1024,
-        id: '6',
-        created: 1605949673675
-    },
-    {
-        code: 1028,
-        sponsorId: 1024,
-        id: '7',
-        created: 1605949673675
-    },
-    {
-        code: 1029,
-        sponsorId: 1027,
-        id: '8',
-        created: 1605949673675
-    },
-    {
-        code: 1030,
-        sponsorId: 1025,
-        id: '9',
-        created: 1605949673675
-    },
-    {
-        code: 1031,
-        sponsorId: 1025,
-        id: '10',
-        created: 1605949673675
-    },
-    {
-        code: 1032,
-        sponsorId: 1027,
-        id: '11',
-        created: 1605949673675
-    },
-]
+// let arrAllUser = [
+//     {
+//         code: 1022,
+//         sponsorId: 0,
+//         id: '1',
+//         created: 1605949673672
+//     },
+//     {
+//         code: 1023,
+//         sponsorId: 1022,
+//         id: '2',
+//         created: 1605949673673
+//     },
+//     {
+//         code: 1024,
+//         sponsorId: 1022,
+//         id: '3',
+//         created: 1605949673674
+//     },
+//     {
+//         code: 1025,
+//         sponsorId: 1023,
+//         id: '4',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1026,
+//         sponsorId: 1023,
+//         id: '5',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1027,
+//         sponsorId: 1024,
+//         id: '6',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1028,
+//         sponsorId: 1024,
+//         id: '7',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1029,
+//         sponsorId: 1027,
+//         id: '8',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1030,
+//         sponsorId: 1025,
+//         id: '9',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1031,
+//         sponsorId: 1025,
+//         id: '10',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1032,
+//         sponsorId: 1027,
+//         id: '11',
+//         created: 1605949673675
+//     },
+// ]
 
-let arrAllOrder = [
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: 'mamammamamama2',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '11',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: 'mamammamamama1',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '10',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '9',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '9',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '9',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '8',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '7',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '7',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '7',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '6',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '7',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '5',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '7',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '4',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '3',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '3',
-        paid: false
-    },
-    {
-        amount: 200000,
-        created: 1605655788432,
-        id: '2',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '2',
-        paid: false
-    },{
-        amount: 200000,
-        created: 1605655788432,
-        id: '1',
-        status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
-        uid: '1',
-        paid: false
-    }
-]
+const fs = require('fs')
+let arrAllUser = JSON.parse(fs.readFileSync("users.json").toString())
+let arrAllOrder = JSON.parse(fs.readFileSync("orders.json").toString())
+// let arrAllOrder = [
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: 'mamammamamama2',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '11',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: 'mamammamamama1',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '10',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '9',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '9',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '9',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '8',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '7',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '7',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '7',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '6',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '7',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '5',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '7',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '4',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '3',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '3',
+//         paid: false
+//     },
+//     {
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '2',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '2',
+//         paid: false
+//     },{
+//         amount: 200000,
+//         created: 1605655788432,
+//         id: '1',
+//         status: 1, //0: đang chờ xác nhận; 1: đã xác nhận,
+//         uid: '1',
+//         paid: false
+//     }
+// ]
 
 // lấy những order đã được xác nhận
 arrAllOrder = arrAllOrder.filter(e => e.status === 1)
@@ -234,14 +237,15 @@ for (let i = 0; i < arrAllUser.length; i++) {
     arrAllUser[i].valueOfUnder = detail.valueOfUnder
 }
 
+
 // console.log(arrAllUser)
 
 
 for (let i = 0; i < arrAllUser.length; i++) {
     arrAllUser[i].level = getLevel(arrAllUser[i].valueOfUnder)
-
 }
-console.log(arrAllUser)
+
+fs.writeFileSync("test.json", JSON.stringify(arrAllUser))
 
 
 // for (let i = 0; i < arrAllUser.length; i++) {

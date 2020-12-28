@@ -1,9 +1,10 @@
 const Schema = require('mongoose').Schema
+const Song = require('./song')
 
 const Playlist = new Schema({
-    idUser: String,
+    gid: String,
     name: String,
-    songs: [Schema.Types.ObjectId]
+    songs: [Song]
 })
 
 module.exports = Playlist

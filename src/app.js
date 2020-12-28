@@ -7,6 +7,14 @@ const fs = require('fs')
 const md5 = require('md5')
 const https = require('https')
 const execSync = require('child_process').execSync
+const models = require('./models/index')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+
+
+const History = models.History
+const Playlist = models.Playlist
+const Song = models.Song
 
 
 const uuid = require('uuid').v4
@@ -16,8 +24,10 @@ const SERVER_VERSION =  process.env.SERVER_VERSION || "v1.0"
 const APP_PORT = process.env.APP_PORT || 3000
 
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
-const API_KEY = 'AIzaSyBPHm3qB0pN8Mm5oPAnok40K_7LhQ2xkS8'
+const API_KEY = 'AIzaSyDTP4aVok3uV8sHjYv2Ogd_NQ0WNQZdGgU'
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/', (req, res) => {
     res.json({
@@ -53,8 +63,176 @@ app.get('/trending', async (req, res) => {
     res.json(rs)
 })
 
+app.delete('/delete_playlist', async (req, res) => {
+    let playlistid = req.query.id
+    try {
+        await Playlist.findByIdAndDelete(mongoose.Types.ObjectId(playlistid))
+        res.json({
+            success: true
+        })
+    } catch (e) {
+        res.json({
+            success: false
+        })
+    }
+
+})
+
+app.get('/get_playlists', async (req, res) => {
+    // console.log('/get_playlists');
+    // console.log(req.headers);
+    try {
+        if (req.headers.authorization || req.headers.Authorization) {
+            let playlists = await Playlist.find({gid: req.headers.authorization || req.headers.Authorization}).lean()
+            // console.log(playlists);
+            res.json(playlists)
+        } else {
+            throw new Error("No Auth")
+        }
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+})
+
+app.post('/create_playlist', async (req, res) => {
+    // console.log(req.body)
+    // console.log(req.headers)
+    let gid = req.headers.authorization || req.headers.Authorization
+    if (gid) {
+        let playlist = new Playlist({
+            name: req.body.name,
+            gid
+        })
+        playlist.save(err => {
+            if (err) {
+                res.json({
+                    success: false
+                })
+            } else {
+                res.json({
+                    success: true
+                })
+            }
+        })
+    } else {
+        res.json({
+            success: false
+        })
+    }
+})
+
+app.get('/playlist', async (req, res) => {
+    let playlist = await Playlist.findById(mongoose.Types.ObjectId(req.query.id)).lean()
+    console.log(playlist)
+    res.json(playlist)
+})
+
+app.post('/delete_song_in_playlist', async (req, res) => {
+    let playlistid = req.body.playlistid
+    let songid = req.body.songid
+    console.log("called")
+    try {
+        let playlist = await Playlist.findById(mongoose.Types.ObjectId(playlistid))
+        // console.log(playlist)
+        if (playlist) { 
+            // find song
+            // console.log("Im here")
+            let songIdx = playlist.songs.findIndex((e) => e.id == songid)
+            console.log(songIdx)
+            if (songIdx >= 0) {
+                playlist.songs.splice(songIdx, 1)
+                playlist.songs = [...playlist.songs]
+            }
+            await playlist.save()
+
+            res.json({
+                success: true
+            })
+        } else {
+            res.json({
+                success: true
+            })
+        }
+    } catch (e) {
+        res.json({
+            success: false
+        })
+    }
+
+})
+
+app.post('/add_song_to_playlist', async (req, res) => {
+    let song = req.body.songid
+    let playlistid = req.body.playlistid
+
+    // console.log("received:" , song, playlistid )
+
+
+    // findsong
+    let rs = await axios.get(YOUTUBE_API + `/videos?part=contentDetails,snippet&id=${song}&key=${API_KEY}`)
+    song = rs.data.items.map((e) => {
+        return {
+            id: e.id,
+            title: e.snippet.title,
+            description: e.snippet.description,
+            channelTitle: e.snippet.channelTitle,
+            publishTime: e.snippet.publishTime || e.snippet.publishedAt,
+            liveBroadcastContent: e.snippet.liveBroadcastContent,
+            thumbnails: e.snippet.thumbnails,
+            duration: e.contentDetails.duration
+        }
+    })[0]
+    // console.log(song)
+
+    try {
+        let playlist = await Playlist.findById(mongoose.Types.ObjectId(playlistid))
+        if (playlist) {
+            console.log(playlist)
+            // find Song
+            let songID = null
+            let songInDB = await Song.findOne({id: song.id})
+            console.log("songInDB:", songInDB)
+            if (songInDB) {
+                songID = songInDB._id
+            } else {
+                //create Song
+                console.log("Creating new Song")
+                let newSong = new Song(song)
+                newSong = await newSong.save()
+                songInDB = newSong
+            }
+            
+            if (!playlist.songs.map(e => e.id).includes(songInDB.id)) {
+                playlist.songs.push(songInDB)
+                await playlist.save()
+            }
+
+            res.json({
+                success: true
+            })
+        } else {
+            throw new Error("No playlist")
+        }
+    } catch (e) {
+        res.json({
+            success: false
+        })
+    }
+    // find playlist
+})
+
 app.get('/search', async (req, res) => {
     let queryString = req.query.q
+
+    //gacount id
+    if (req.headers.authorization || req.headers.Authorization) {
+        new History({
+            gid: req.headers.authorization || req.headers.Authorization,
+            searchString: queryString
+        }).save((err) => {
+            // donothing
+        })
+    }
 
     let rs = await axios.get(YOUTUBE_API + `/search?part=id&maxResults=30&q=${encodeURIComponent(queryString)}&key=${API_KEY}`)
     // res.send(rs.data)

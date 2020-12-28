@@ -1,40 +1,41 @@
-let arrAllUser = [
-    {
-        code: 1022,
-        sponsorId: 0,
-        id: 'skksksksksk',
-        created: 1605949673672
-    },
-    {
-        code: 1027,
-        sponsorId: 0,
-        id: 'skksksksksk1',
-        created: 1605949673673
-    },
-    {
-        code: 1027,
-        sponsorId: 1022,
-        id: 'skksksksksk2',
-        created: 1605949673674
-    },
-    {
-        code: 1200,
-        sponsorId: 1022,
-        id: 'skksksksksk3',
-        created: 1605949673675
-    },
-    {
-        code: 1223,
-        sponsorId: 1022,
-        id: 'skksksksksk3',
-        created: 1605949673676
-    },{
-        code: 1200,
-        sponsorId: 1022,
-        id: 'skksksksksk3',
-        created: 1605949673679
-    }
-]
+// let arrAllUser = [
+//     {
+//         code: 1022,
+//         sponsorId: 0,
+//         id: 'skksksksksk',
+//         created: 1605949673672
+//     },
+//     {
+//         code: 1027,
+//         sponsorId: 0,
+//         id: 'skksksksksk1',
+//         created: 1605949673673
+//     },
+//     {
+//         code: 1027,
+//         sponsorId: 1022,
+//         id: 'skksksksksk2',
+//         created: 1605949673674
+//     },
+//     {
+//         code: 1200,
+//         sponsorId: 1022,
+//         id: 'skksksksksk3',
+//         created: 1605949673675
+//     },
+//     {
+//         code: 1223,
+//         sponsorId: 1022,
+//         id: 'skksksksksk3',
+//         created: 1605949673676
+//     },{
+//         code: 1200,
+//         sponsorId: 1022,
+//         id: 'skksksksksk3',
+//         created: 1605949673679
+//     }
+// ]
+
 
 //group user by id
 let groupedUserById = {}
